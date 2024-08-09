@@ -10,9 +10,7 @@ export default function Searchbar() {
         />
       </div>
       <select className="select select-bordered join-item hidden ">
-        <option disabled selected>
-          Filter
-        </option>
+        <option disabled>Filter</option>
         <option>Sci-fi</option>
         <option>Drama</option>
         <option>Action</option>
