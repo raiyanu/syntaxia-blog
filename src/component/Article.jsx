@@ -2,14 +2,14 @@ import React from "react";
 const Articles = [
   {
     title: "How to be a good programmer",
-    category: "Technology",
+    category: "Technology & Science",
     posted: "Dec 12, 2021",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
   },
   {
     title: "Getting Started with Python",
-    category: "Technology",
+    category: "Technology & Science",
     posted: "Apr 2, 2022",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
@@ -29,15 +29,15 @@ const Articles = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
   },
   {
-    title: "Healthy Eating Habits",
-    category: "Health",
+    title: "Healthy Eating Habits Impact",
+    category: "Health tips & Tricks",
     posted: "Jul 20, 2022",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
   },
   {
     title: "Getting Started with Python",
-    category: "Technology",
+    category: "Technology & Science",
     posted: "Apr 2, 2022",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
@@ -101,6 +101,9 @@ const ArticleItem = ({ name: { Article, index } }) => {
         </p>
         <h3 className="text-lg font-bold">{Article.title}</h3>
         <p className="h-24  overflow-clip text-sm">{Article.content}</p>
+        <button className="btn btn-primary block ml-auto mt-3 btn-sm">
+          Read
+        </button>
       </li>
     </>
   );

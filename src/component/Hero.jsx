@@ -3,7 +3,7 @@ import heroImg from "./assets/journalpic.jpg";
 export default function Hero() {
   return (
     <div
-      className="hero min-h-screen"
+      className="hero min-h-screen rounded-md"
       style={{
         backgroundImage: `url(${heroImg})`,
       }}
@@ -19,7 +19,7 @@ export default function Hero() {
           </p>
           <button className="btn btn-primary">Get Started</button>
         </div>
-        <div className="stats stats-vertical md:stats-horizontal shadow  bg-opacity-0 ">
+        <div className="stats stats-vertical md:stats-horizontal bg-opacity-0 shadow-none ">
           <div className="stat">
             <div className="stat-title text-primary-content">Downloads</div>
             <div className="stat-value text-primary-content">31K</div>

@@ -4,9 +4,11 @@ import Article from "./Article";
 
 export default function HomeBody() {
   return (
-    <div className="flex items-stretch justify-between flex-wrap">
-      <Article />
-      <AsideBar />
-    </div>
+    <>
+      <div className="flex items-stretch justify-between flex-wrap">
+        <Article />
+        <AsideBar />
+      </div>
+    </>
   );
 }

@@ -3,76 +3,75 @@ import logo from "./assets/network-search.svg";
 import book from "./assets/book-open.svg";
 import infoIcon from "./assets/help-circle.svg";
 import home from "./assets/home-03.svg";
+import { NavLink } from "react-router-dom";
+
+export const NavigationLink = ({ IT }) => {
+  return (
+    <NavLink
+      to={`${IT.url}`}
+      className={({ isActive, isPending }) =>
+        ` btn btn-ghost btn-sm  flex items-center justify-start    ${
+          isPending ? "pending" : isActive ? "bg-base-300" : ""
+        }`
+      }
+    >
+      {`${IT.name}`}
+    </NavLink>
+  );
+};
+
 const MenuItems = () => {
   return (
     <>
       <li>
-        <a>
-          {" "}
-          {/* <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-            />
-          </svg> */}
-          <img src={home} alt="home" className="h-5 w-5" />
-          Home
-        </a>
+        <NavigationLink IT={{ url: "/", name: "Home" }} />
       </li>
 
       <li>
         <details>
-          <summary>
+          <summary className="font-semibold">
             <img src={book} alt="book" className="h-5 w-5" />
             Articles
           </summary>
           <ul className="gap-1">
             <li>
-              <a>Latest</a>
+              <NavigationLink IT={{ url: "/latest", name: "Latest" }} />
             </li>
             <li>
-              <a>Tech</a>
+              <NavigationLink IT={{ url: "/tech", name: "Tech" }} />
             </li>
             <li>
-              <a>Non-Tech</a>
+              <NavigationLink IT={{ url: "/non-tech", name: "Non-Tech" }} />
             </li>
           </ul>
         </details>
       </li>
       <li>
         <details>
-          <summary>Other</summary>
+          <summary className="font-semibold">Other</summary>
           <ul>
             <li>
-              <a>Github</a>
+              <NavigationLink IT={{ url: "/github", name: "Github" }} />
             </li>
             <li>
-              <a>FAQs</a>
+              <NavigationLink IT={{ url: "/faqs", name: "FAQs" }} />
             </li>
           </ul>
         </details>
       </li>
       <li>
-        <a>
-          <img src={infoIcon} alt="info" className="h-5 w-5" />
-          About Us
-        </a>
+        <NavigationLink IT={{ url: "/about", name: "About Us" }} />
+      </li>
+      <li>
+        <NavigationLink IT={{ url: "/blog", name: "Blog" }} />
       </li>
     </>
   );
 };
 
-export default function Navbar() {
+export default function Navbar({ handleThemeChange, themes }) {
   return (
-    <div className="navbar bg-base-100 sm:px-5  md:px-8">
+    <header className="navbar bg-base-100 sm:px-5  md:px-8 ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -129,17 +128,25 @@ export default function Navbar() {
         </div>
         <a className="btn btn-ghost text-xl" href="/">
           <img src={logo} alt="logo" className="h-8 w-8" />
-          Syntaxia <sub className="text-xs">Blog</sub>{" "}
+          Syntaxia <sub className="text-xs">Blog</sub>
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu lg:menu-horizontal rounded-box ">
+        <ul className="menu lg:menu-horizontal rounded-box gap-2 shrink">
           <MenuItems />
         </ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end gap-3">
+        <select
+          onChange={(e) => handleThemeChange(e)}
+          className="select select-bordered w-26 py-0 h-2 text-sm min-h-10 btn pr-7"
+        >
+          {themes.map((address, key) => (
+            <option value={key}>{address}</option>
+          ))}
+        </select>
         <a className="btn btn-primary">Login</a>
       </div>
-    </div>
+    </header>
   );
 }

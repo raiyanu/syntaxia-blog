@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SubscribePanel() {
   return (
-    <div className="hero bg-base-200 min-h-screen w-full">
+    <div className="hero bg-base-200 min-h-96 w-full py-8">
       <div className="hero-content flex-col lg:flex-row w-full">
         <div className="text-center lg:text-left lg:max-w-lg">
           <h1 className="text-5xl font-bold">Subscribe To Our Newsletter</h1>
@@ -17,7 +17,7 @@ export default function SubscribePanel() {
             className="input input-bordered join-item max-w-[70%]"
             placeholder="Email..."
           />
-          <button className="btn join-item rounded-r-full max-w-[30%]">
+          <button className="btn join-item rounded-r-full max-w-[30%] bg-base-200 hover:bg-slate-300">
             Subscribe
           </button>
         </div>
