@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 
 export default function Register() {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [terms, setTerms] = useState(false);
+
+  const handleTermsChange = (value) => {
+    setTerms(value);
+  };
+  const handleUsernameChange = (value) => {
+    setUsername(value);
+  };
   const handleEmailChange = (value) => {
     setEmail(value);
   };
@@ -13,10 +21,13 @@ export default function Register() {
   };
 
   return (
-    <div className="max-w-sm flex items-center flex-col justify-center   border-l-info-content min-w-full py-20 ">
-      <h1 className="text-primary-content">Login</h1>
-
-      <form className="flex flex-col gap-2">
+    <div className="max-w-full flex items-center flex-col justify-center  mb-20  border-l-info-content min-w-full min-h-[60vh]">
+      <h1 className="text-primary font-extrabold text-2xl my-4">Register</h1>
+      <Form
+        className="flex flex-col gap-4 max-w-[350px]"
+        method="POST"
+        action="/api/users/"
+      >
         <label className="input input-bordered flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,15 +35,14 @@ export default function Register() {
             fill="currentColor"
             className="h-4 w-4 opacity-70"
           >
-            <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
-            <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
+            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
           </svg>
           <input
             type="text"
             className="grow"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => handleEmailChange(e.target.value)}
+            placeholder="Username"
+            value={username}
+            onChange={(e) => handleUsernameChange(e.target.value)}
           />
         </label>
         <label className="input input-bordered flex items-center gap-2">
@@ -74,25 +84,36 @@ export default function Register() {
             placeholder="Password"
           />
         </label>
-        <div className="flex items-center justify-center gap-1 px-2">
+        <label className="flex items-center justify-center gap-1 px-2 mb-3">
           <input
             type="checkbox"
-            className="checkbox checkbox-xs checkbox-secondary  mb-3 mt-2 "
+            className="checkbox checkbox-xs checkbox-secondary   text-center"
+            value={terms}
+            onChange={(e) => handleTermsChange(e.target.checked)}
           />
-          <span className="text-center">
-            you agree to our{" "}
-            <Link className="link" to={"/terms"}>
+          <span className="text-center text-xs">
+            you agree to our
+            <Link className="link mx-1" to={"/terms"}>
               terms
-            </Link>{" "}
-            and{" "}
-            <Link className="link" to={"/terms"}>
-              services.
             </Link>
+            and
+            <Link className="link ml-1" to={"/terms"}>
+              services
+            </Link>
+            .
           </span>
-        </div>
+        </label>
 
-        <input type="button" className="btn btn-primary" value="Login" />
-      </form>
+        <button type="submit" className="btn btn-primary">
+          Login
+        </button>
+      </Form>
+      <div className="flex items-center justify-center gap-1 mt-3 text-sm">
+        <span>Already have an account?</span>
+        <Link className="link underline-offset-4" to={"/login"}>
+          Login
+        </Link>
+      </div>
     </div>
   );
 }

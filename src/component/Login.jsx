@@ -12,9 +12,13 @@ export default function Login() {
   };
 
   return (
-    <div className="max-w-xs flex items-center flex-col justify-center bg-red-300   border-l-info-content min-w-full min-h-[60vh]">
+    <div className="max-w-full flex items-center flex-col justify-center    border-l-info-content min-w-full min-h-[60vh]">
       <h1 className="text-primary font-extrabold text-2xl my-4">Login</h1>
-      <Form className="flex flex-col gap-2" method="POST" action="/api/users/">
+      <Form
+        className="flex flex-col gap-4 max-w-[350px]"
+        method="POST"
+        action="/api/users/"
+      >
         <label className="input input-bordered flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,28 +58,16 @@ export default function Login() {
             placeholder="Password"
           />
         </label>
-        <div className="flex items-center justify-center gap-1 px-2">
-          <input
-            type="checkbox"
-            className="checkbox checkbox-xs checkbox-secondary  mb-3 mt-2 "
-          />
-          <span className="text-center">
-            you agree to our{" "}
-            <Link className="link" to={"/terms"}>
-              terms
-            </Link>{" "}
-            and{" "}
-            <Link className="link" to={"/terms"}>
-              services.
-            </Link>
-          </span>
-        </div>
-
         <button type="submit" className="btn btn-primary">
-          {" "}
-          Login{" "}
+          Login
         </button>
       </Form>
+      <div className="flex items-center justify-center gap-1 mt-3 text-xs">
+        <span>Don't have an account?</span>
+        <Link className="link underline-offset-4" to={"/register"}>
+          Register
+        </Link>
+      </div>
     </div>
   );
 }
