@@ -14,7 +14,6 @@ export default function Login() {
   return (
     <div className="max-w-xs flex items-center flex-col justify-center bg-red-300   border-l-info-content min-w-full min-h-[60vh]">
       <h1 className="text-primary font-extrabold text-2xl my-4">Login</h1>
-
       <Form className="flex flex-col gap-2" method="POST" action="/api/users/">
         <label className="input input-bordered flex items-center gap-2">
           <svg
