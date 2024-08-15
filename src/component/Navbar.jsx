@@ -9,6 +9,7 @@ export const NavigationLink = ({ IT }) => {
   return (
     <NavLink
       to={`${IT.url}`}
+      key={IT.name}
       className={({ isActive, isPending }) =>
         ` btn btn-ghost btn-sm  flex items-center justify-start    ${
           isPending ? "pending" : isActive ? "bg-base-300" : ""
@@ -23,46 +24,46 @@ export const NavigationLink = ({ IT }) => {
 const MenuItems = () => {
   return (
     <>
-      <li>
+      <li key="home">
         <NavigationLink IT={{ url: "/", name: "Home" }} />
       </li>
 
-      <li>
+      <li key="articles">
         <details>
           <summary className="font-semibold">
             <img src={book} alt="book" className="h-5 w-5" />
             Articles
           </summary>
           <ul className="gap-1">
-            <li>
+            <li key="latest">
               <NavigationLink IT={{ url: "/latest", name: "Latest" }} />
             </li>
-            <li>
+            <li key="tech">
               <NavigationLink IT={{ url: "/tech", name: "Tech" }} />
             </li>
-            <li>
+            <li key="non-tech">
               <NavigationLink IT={{ url: "/non-tech", name: "Non-Tech" }} />
             </li>
           </ul>
         </details>
       </li>
-      <li>
+      <li key="other">
         <details>
           <summary className="font-semibold">Other</summary>
           <ul>
-            <li>
+            <li key="github">
               <NavigationLink IT={{ url: "/github", name: "Github" }} />
             </li>
-            <li>
+            <li key="faqs">
               <NavigationLink IT={{ url: "/faqs", name: "FAQs" }} />
             </li>
           </ul>
         </details>
       </li>
-      <li>
+      <li key="about">
         <NavigationLink IT={{ url: "/about", name: "About Us" }} />
       </li>
-      <li>
+      <li key="blog">
         <NavigationLink IT={{ url: "/blog", name: "Blog" }} />
       </li>
     </>
@@ -142,7 +143,9 @@ export default function Navbar({ handleThemeChange, themes }) {
           className="select select-bordered w-26 py-0 h-2 text-sm min-h-10 btn pr-7"
         >
           {themes.map((address, key) => (
-            <option value={key}>{address}</option>
+            <option value={key} key={`${address}-${key}`}>
+              {address}
+            </option>
           ))}
         </select>
         <NavLink

@@ -1,17 +1,10 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Hero from "./component/Hero";
+import axios from "axios";
+import { Outlet } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
-import AsideBar from "./component/AsideBar";
-import HomeBody from "./component/HomeBody";
-import SubscribePanel from "./component/SubscribePanel";
-import { Route, Routes } from "react-router-dom";
-import Blog from "./component/Blog";
-import Carousel from "./component/Carousel";
-import Login from "./component/Login";
-import axios from "axios";
-import Register from "./component/Register";
+
 function App() {
   const [data, setData] = useState("not loaded");
   const themes = [
@@ -71,25 +64,7 @@ function App() {
           <h1 className="text-red-600 text-center px-3 rounded-box bg-blue-200 w-fit block mx-auto my-3">
             {data}
           </h1>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <Hero />
-                  <HomeBody />
-                  <Carousel />
-                  <SubscribePanel />
-                </>
-              }
-            />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/about" element={<AsideBar />} />
-            <Route path="/contact" element={<SubscribePanel />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="*" element={<h1>2 404 ERROR</h1>} />
-          </Routes>
+          <Outlet />
           <Footer />
         </div>
       </div>
