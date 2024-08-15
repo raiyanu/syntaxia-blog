@@ -126,10 +126,10 @@ export default function Navbar({ handleThemeChange, themes }) {
             </li> */}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl" href="/">
+        <NavLink className="btn btn-ghost text-xl" to={"/"}>
           <img src={logo} alt="logo" className="h-8 w-8" />
           Syntaxia <sub className="text-xs">Blog</sub>
-        </a>
+        </NavLink>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu lg:menu-horizontal rounded-box gap-2 shrink">
@@ -145,7 +145,16 @@ export default function Navbar({ handleThemeChange, themes }) {
             <option value={key}>{address}</option>
           ))}
         </select>
-        <a className="btn btn-primary">Login</a>
+        <NavLink
+          to={`/login`}
+          className={({ isActive, isPending }) =>
+            `btn btn-primary ${
+              isPending ? "opacity-15" : isActive ? "hidden" : ""
+            }`
+          }
+        >
+          LOGIN
+        </NavLink>
       </div>
     </header>
   );

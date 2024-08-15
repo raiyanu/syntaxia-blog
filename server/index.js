@@ -13,7 +13,7 @@ app.use((req, res, next) => {
 
 app.use(
   express.static("../dist"),
-  express.json(),
+  express.json({ limit: "50mb", extended: true, type: "application/json" }),
   express.urlencoded({ extended: true }),
   cookieParser()
 );
@@ -23,6 +23,12 @@ connectDB();
 app.get("/api", (req, res) => {
   res.json({
     message: "Welcome to the API",
+  });
+});
+
+app.get("/api/test", (req, res) => {
+  res.status(200).json({
+    message: "API STATUS: OK",
   });
 });
 
