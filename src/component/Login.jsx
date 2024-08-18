@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, Form } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLoginMutation } from "../slices/userApiSlice";
+import { Login } from "../slices/authSlice";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -10,7 +13,10 @@ export default function Login() {
   const handlePasswordChange = (value) => {
     setPassword(value);
   };
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
+  const { userInfo } = useSelector((state) => state.auth);
   return (
     <div className="max-w-full flex items-center flex-col justify-center    border-l-info-content min-w-full min-h-[60vh]">
       <h1 className="text-primary font-extrabold text-2xl my-4">Login</h1>

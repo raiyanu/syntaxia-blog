@@ -2,6 +2,8 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import store from "./store";
+import { Provider } from "react-redux";
 // Components
 import App from "./App.jsx";
 import Hero from "./component/Hero";
@@ -76,7 +78,9 @@ const router = createBrowserRouter([
 }
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+  <Provider store={store}>
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>
+  </Provider>
 );
