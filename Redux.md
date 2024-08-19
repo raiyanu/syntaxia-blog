@@ -185,3 +185,80 @@ const index = numbers.indexOf(2);
 const added = [...numbers.slice(0, index), 4, ...numbers.slice(index)];
 // added = [1, 4, 2, 3]
 ```
+
+**Using Immutable.js:**
+
+```javascript
+import { Map } from "immutable";
+let book = Map({ title: "Harry Potter" });
+console.log(book.get("title")); // Harry Potter
+console.log(book.toJS()); // { title: "Harry Potter" }
+
+function publish(book) { // this this is mutating the book object
+  return book.set("isPublished", true);
+}
+book = publish(book); // this is not mutating the book object instead it is returning new object with isPublished property set to true
+```
+
+**Using immer.js:**
+
+```javascript
+import produce from "immer";
+let book = { title: "Harry Potter" };
+const publish = (book) => {
+  return produce(book, (draftBook) => {
+    draftBook.isPublished = true;
+  });
+};
+let updated = publish(book);
+```
+
+**Redux Architecture**
+
+- Redux store
+- Actions
+- Reducers
+
+where,
+
+  **Store**: Single source of truth, accessible by all components/ all parts of the application/UI
+
+- We cannot directly update the store (store is read-only)
+- We can update the store by dispatching actions
+- We can update the store by reducers
+
+```javascript
+function reducer(state, action) {
+  switch (action.type) {
+    case "INCREMENT":
+      return { count: state.count + 1 };
+    case "DECREMENT":
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+}
+// or
+function reducer(state, action) {
+  const updated = { ...state };
+  if (action.type === "INCREMENT") {
+    updated.count++;
+  }
+}
+```
+
+  **Actions**: (Event) Plain JavaScript object
+  **Reducers**:(Event Handler) Pure functions
+
+```bash
+Action[Event] -(dispatch)->
+Store -(forward action) -> 
+<-(updated state) Reducer[Event Handler]  
+```
+
+**Steps to build redux**
+
+- Design the store
+- define the action
+- create a reducer
+- setup the store

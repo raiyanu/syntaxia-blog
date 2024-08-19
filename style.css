@@ -3369,6 +3369,11 @@ html {
   z-index: 1;
 }
 
+.mx-1 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -3399,17 +3404,16 @@ html {
   margin-bottom: 1.5rem;
 }
 
-.mx-1 {
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
-}
-
 .-mt-24 {
   margin-top: -6rem;
 }
 
 .mb-1 {
   margin-bottom: 0.25rem;
+}
+
+.mb-20 {
+  margin-bottom: 5rem;
 }
 
 .mb-3 {
@@ -3432,16 +3436,16 @@ html {
   margin-bottom: 2rem;
 }
 
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
 .ml-auto {
   margin-left: auto;
 }
 
 .mr-2 {
   margin-right: 0.5rem;
-}
-
-.mt-2 {
-  margin-top: 0.5rem;
 }
 
 .mt-3 {
@@ -3458,22 +3462,6 @@ html {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-
-.mt-1 {
-  margin-top: 0.25rem;
-}
-
-.ml-1 {
-  margin-left: 0.25rem;
-}
-
-.mb-20 {
-  margin-bottom: 5rem;
 }
 
 .block {
@@ -3626,8 +3614,8 @@ html {
   max-width: 30%;
 }
 
-.max-w-\[320px\] {
-  max-width: 320px;
+.max-w-\[350px\] {
+  max-width: 350px;
 }
 
 .max-w-\[70\%\] {
@@ -3644,14 +3632,6 @@ html {
 
 .max-w-md {
   max-width: 28rem;
-}
-
-.max-w-sm {
-  max-width: 24rem;
-}
-
-.max-w-\[350px\] {
-  max-width: 350px;
 }
 
 .shrink {
@@ -3718,10 +3698,6 @@ html {
   gap: 1rem;
 }
 
-.overflow-hidden {
-  overflow: hidden;
-}
-
 .overflow-clip {
   overflow: clip;
 }
@@ -3741,10 +3717,6 @@ html {
 
 .border {
   border-width: 1px;
-}
-
-.border-2 {
-  border-width: 2px;
 }
 
 .border-l-info-content {
@@ -3775,11 +3747,6 @@ html {
 .bg-neutral {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
-}
-
-.bg-red-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-0 {
@@ -3833,11 +3800,6 @@ html {
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-}
-
-.py-20 {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
 }
 
 .py-6 {
@@ -3923,10 +3885,6 @@ html {
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
-}
-
-.underline-offset-1 {
-  text-underline-offset: 1px;
 }
 
 .underline-offset-4 {
