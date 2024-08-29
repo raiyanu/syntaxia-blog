@@ -16,6 +16,7 @@ import Blog from "./component/Blog";
 import Carousel from "./component/Carousel";
 import Login from "./component/Login";
 import Register from "./component/Register";
+import About from "./component/About.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,8 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        index: true,
-        element: <Login />,
+        element: (<Login />),
         // You can add loaders, action handlers, etc., here if needed
       },
       {
@@ -47,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "blog",
         element: <Blog />,
+      },
+      {
+        path: "about",
+        element: <About />,
       },
       {
         path: "*",

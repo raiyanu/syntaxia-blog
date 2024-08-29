@@ -4,6 +4,7 @@ import book from "./assets/book-open.svg";
 import infoIcon from "./assets/help-circle.svg";
 import home from "./assets/home-03.svg";
 import { NavLink } from "react-router-dom";
+import { useSelector } from 'react-redux'
 
 export const NavigationLink = ({ IT }) => {
   return (
@@ -11,8 +12,7 @@ export const NavigationLink = ({ IT }) => {
       to={`${IT.url}`}
       key={IT.name}
       className={({ isActive, isPending }) =>
-        ` btn btn-ghost btn-sm  flex items-center justify-start    ${
-          isPending ? "pending" : isActive ? "bg-base-300" : ""
+        ` btn btn-ghost btn-sm  flex items-center justify-start    ${isPending ? "pending" : isActive ? "bg-base-300" : ""
         }`
       }
     >
@@ -21,7 +21,7 @@ export const NavigationLink = ({ IT }) => {
   );
 };
 
-const MenuItems = () => {
+const MenuItems = ({ themes, handleThemeChange }) => {
   return (
     <>
       <li key="home">
@@ -32,7 +32,7 @@ const MenuItems = () => {
         <details>
           <summary className="font-semibold">
             <img src={book} alt="book" className="h-5 w-5" />
-            Articles
+            Articlesx
           </summary>
           <ul className="gap-1">
             <li key="latest">
@@ -66,11 +66,24 @@ const MenuItems = () => {
       <li key="blog">
         <NavigationLink IT={{ url: "/blog", name: "Blog" }} />
       </li>
+      <li key="themeSelector" className="hidden max-lg:flex">
+        <select
+          onChange={(e) => handleThemeChange(e)}
+          className="select select-bordered w-26 py-0 h-2 text-sm min-h-10 btn pr-7"
+        >
+          {themes.map((address, key) => (
+            <option value={key} key={`${address}-${key}`}>
+              {address == "night" ? "night(Default)" : address}
+            </option>
+          ))}
+        </select>
+      </li>
     </>
   );
 };
 
 export default function Navbar({ handleThemeChange, themes }) {
+  const state = useSelector((state) => state);
   return (
     <header className="navbar bg-base-100 sm:px-5  md:px-8 ">
       <div className="navbar-start">
@@ -95,7 +108,7 @@ export default function Navbar({ handleThemeChange, themes }) {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow gap-2"
           >
-            <MenuItems />
+            <MenuItems themes={themes} handleThemeChange={handleThemeChange} />
             {/* <li>
               <a>Home</a>
             </li>
@@ -134,30 +147,32 @@ export default function Navbar({ handleThemeChange, themes }) {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu lg:menu-horizontal rounded-box gap-2 shrink">
-          <MenuItems />
+          <MenuItems themes={themes} handleThemeChange={handleThemeChange} />
         </ul>
       </div>
       <div className="navbar-end gap-3">
         <select
           onChange={(e) => handleThemeChange(e)}
-          className="select select-bordered w-26 py-0 h-2 text-sm min-h-10 btn pr-7"
+          className="select select-bordered w-26 py-0 h-2 text-sm min-h-10 btn pr-7 hidden lg:flex"
         >
           {themes.map((address, key) => (
             <option value={key} key={`${address}-${key}`}>
-              {address}
+              {address == "night" ? "night(Default)" : address}
             </option>
           ))}
         </select>
         <NavLink
           to={`/login`}
           className={({ isActive, isPending }) =>
-            `btn btn-primary ${
-              isPending ? "opacity-15" : isActive ? "hidden" : ""
+            `btn btn-primary ${isPending ? "opacity-15" : isActive ? "hidden" : ""
             }`
           }
         >
-          LOGIN
+          LOGIN {state.auth.loading ? "..." : ""}
         </NavLink>
+        <button onClick={() => {
+          console.log(state.auth);
+        }}>state</button>
       </div>
     </header>
   );

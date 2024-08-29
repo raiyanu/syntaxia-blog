@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, Form } from "react-router-dom";
+import { Link, Form, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../slices/userApiSlice";
-import { Login } from "../slices/authSlice";
 
 export default function Login() {
   const [email, setEmail] = useState("");

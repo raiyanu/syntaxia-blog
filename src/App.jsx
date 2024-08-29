@@ -31,7 +31,7 @@ function App() {
     "nord",
     "sunset",
   ];
-  const [currentTheme, setCurrentTheme] = useState("winter");
+  const [currentTheme, setCurrentTheme] = useState("night");
   const handleThemeChange = (e) => {
     console.log(e.target.value);
     setCurrentTheme((z) => themes[e.target.value]);
@@ -55,7 +55,7 @@ function App() {
     };
     run();
   }, []);
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   return (
     <>
       <div data-theme={`${currentTheme}`} className="wrapper w-full h-full">

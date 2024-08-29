@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, Form } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { register } from "../slices/authSlice";
 
 export default function Register() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -19,6 +22,15 @@ export default function Register() {
   const handlePasswordChange = (value) => {
     setPassword(value);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (terms) {
+      alert("Registering...");
+      dispatch(register({ email, password, username }));
+    } else {
+      alert("Please agree to our terms and services");
+    }
+  }
 
   return (
     <div className="max-w-full flex items-center flex-col justify-center  mb-20  border-l-info-content min-w-full min-h-[60vh]">
@@ -27,6 +39,9 @@ export default function Register() {
         className="flex flex-col gap-4 max-w-[350px]"
         method="POST"
         action="/api/users/"
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
       >
         <label className="input input-bordered flex items-center gap-2">
           <svg
@@ -93,12 +108,8 @@ export default function Register() {
           />
           <span className="text-center text-xs">
             you agree to our
-            <Link className="link mx-1" to={"/terms"}>
-              terms
-            </Link>
-            and
-            <Link className="link ml-1" to={"/terms"}>
-              services
+            <Link className="link mx-1" to={"/t&s"}>
+              terms & services
             </Link>
             .
           </span>
