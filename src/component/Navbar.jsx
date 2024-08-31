@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "./assets/network-search.svg";
 import book from "./assets/book-open.svg";
 import infoIcon from "./assets/help-circle.svg";
 import home from "./assets/home-03.svg";
-import { NavLink } from "react-router-dom";
-import { useSelector } from 'react-redux'
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from "../slices/authSlice";
+
 
 export const NavigationLink = ({ IT }) => {
   return (
@@ -83,7 +85,12 @@ const MenuItems = ({ themes, handleThemeChange }) => {
 };
 
 export default function Navbar({ handleThemeChange, themes }) {
+
   const state = useSelector((state) => state);
+  console.log("userinfo in login page:", JSON.parse(localStorage.getItem("userInfo")));
+  const loggedIn = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")).loggedIn : state.auth.loggedIn;
+  const dispatch = useDispatch();
+
   return (
     <header className="navbar bg-base-100 sm:px-5  md:px-8 ">
       <div className="navbar-start">
@@ -161,7 +168,7 @@ export default function Navbar({ handleThemeChange, themes }) {
             </option>
           ))}
         </select>
-        <NavLink
+        {(!loggedIn && <NavLink
           to={`/login`}
           className={({ isActive, isPending }) =>
             `btn btn-primary ${isPending ? "opacity-15" : isActive ? "hidden" : ""
@@ -169,10 +176,35 @@ export default function Navbar({ handleThemeChange, themes }) {
           }
         >
           LOGIN {state.auth.loading ? "..." : ""}
-        </NavLink>
+        </NavLink>)}
         <button onClick={() => {
           console.log(state.auth);
         }}>state</button>
+
+
+        {(loggedIn && <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            <div className="w-8 lg:w-10 rounded-full">
+              <img
+                alt="Tailwind CSS Navbar component"
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            </div>
+          </div>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-44 lg:w-52 p-2 shadow">
+            <li>
+              <a className="justify-between">
+                Profile
+                <span className="badge">New</span>
+              </a>
+            </li>
+            <li><a>Settings</a></li>
+            <li onClick={() => {
+              dispatch(logout());
+            }} ><a>Logout</a></li>
+          </ul>
+        </div>)}
       </div>
     </header>
   );

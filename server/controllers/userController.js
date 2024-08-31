@@ -6,7 +6,7 @@ import generateToken from "../utils/generateToken.js";
 // route POST /api/users/auth
 // @access Public
 const authUser = asyncHandler(async (req, res) => {
-	console.log(req.body); // TODO : REMOVE THIS
+	console.log("data:", req.body); // TODO : REMOVE THIS
 	const email = req.body.email;
 	const password = req.body.password;
 	if (!email || !password) {

@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, Form, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../slices/userApiSlice";
 
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../slices/authSlice";
+
 export default function Login() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleEmailChange = (value) => {
@@ -12,17 +15,36 @@ export default function Login() {
   const handlePasswordChange = (value) => {
     setPassword(value);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Logging...");
+    dispatch(login({ email, password }));
+  }
+  const state = useSelector((state) => state);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [login, { isLoading }] = useLoginMutation();
-  const { userInfo } = useSelector((state) => state.auth);
+  useEffect(() => {
+    console.log("userinfo in login page:", JSON.parse(localStorage.getItem("userInfo")));
+    const loggedIn = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")).loggedIn : state.auth.loggedIn;
+    if (loggedIn) {
+      console.log("Logged in");
+      console.log("Logged in");
+      // Redirect the user to the home page
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="max-w-full flex items-center flex-col justify-center    border-l-info-content min-w-full min-h-[60vh]">
       <h1 className="text-primary font-extrabold text-2xl my-4">Login</h1>
       <Form
         className="flex flex-col gap-4 max-w-[350px]"
         method="POST"
-        action="/api/users/"
+        action="/api/users/auth"
+        onSubmit={
+          (e) => {
+            e.preventDefault();
+            handleSubmit(e);
+          }
+        }
       >
         <label className="input input-bordered flex items-center gap-2">
           <svg
