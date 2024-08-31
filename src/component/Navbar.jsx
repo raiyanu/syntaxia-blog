@@ -3,7 +3,7 @@ import logo from "./assets/network-search.svg";
 import book from "./assets/book-open.svg";
 import infoIcon from "./assets/help-circle.svg";
 import home from "./assets/home-03.svg";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from "../slices/authSlice";
 
@@ -194,10 +194,10 @@ export default function Navbar({ handleThemeChange, themes }) {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-44 lg:w-52 p-2 shadow">
             <li>
-              <a className="justify-between">
+              <Link to={"/profile"} className="justify-between">
                 Profile
                 <span className="badge">New</span>
-              </a>
+              </Link>
             </li>
             <li><a>Settings</a></li>
             <li onClick={() => {

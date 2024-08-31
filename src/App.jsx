@@ -7,30 +7,7 @@ import Footer from "./component/Footer";
 
 function App() {
   const [data, setData] = useState("not loaded");
-  const themes = [
-    "halloween",
-    "garden",
-    "forest",
-    "aqua",
-    "lofi",
-    "pastel",
-    "fantasy",
-    "wireframe",
-    "black",
-    "luxury",
-    "dracula",
-    "cmyk",
-    "autumn",
-    "business",
-    "acid",
-    "lemonade",
-    "night",
-    "coffee",
-    "winter",
-    "dim",
-    "nord",
-    "sunset",
-  ];
+
   const [currentTheme, setCurrentTheme] = useState("night");
   const handleThemeChange = (e) => {
     console.log(e.target.value);
@@ -73,3 +50,27 @@ function App() {
 }
 
 export default App;
+const themes = [
+  "halloween",
+  "garden",
+  "forest",
+  "aqua",
+  "lofi",
+  "pastel",
+  "fantasy",
+  "wireframe",
+  "black",
+  "luxury",
+  "dracula",
+  "cmyk",
+  "autumn",
+  "business",
+  "acid",
+  "lemonade",
+  "night",
+  "coffee",
+  "winter",
+  "dim",
+  "nord",
+  "sunset",
+];

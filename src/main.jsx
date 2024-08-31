@@ -17,6 +17,8 @@ import Carousel from "./component/Carousel";
 import Login from "./component/Login";
 import Register from "./component/Register";
 import About from "./component/About.jsx";
+import ProfileSection from "./component/ProfileSection.jsx";
+import ProtectedRoute from "./component/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +53,16 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "profile",
+            element: <ProfileSection />,
+          },
+          // Add other protected routes here
+        ],
       },
       {
         path: "*",

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, Form } from "react-router-dom";
+import { Link, Form, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "../slices/authSlice";
 
 export default function Register() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +32,16 @@ export default function Register() {
       alert("Please agree to our terms and services");
     }
   }
-
+  useEffect(() => {
+    console.log("userinfo in login page:", JSON.parse(localStorage.getItem("userInfo")));
+    const loggedIn = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")).loggedIn : state.auth.loggedIn;
+    if (loggedIn) {
+      console.log("Logged in");
+      console.log("Logged in");
+      // Redirect the user to the home page
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="max-w-full flex items-center flex-col justify-center  mb-20  border-l-info-content min-w-full min-h-[60vh]">
       <h1 className="text-primary font-extrabold text-2xl my-4">Register</h1>

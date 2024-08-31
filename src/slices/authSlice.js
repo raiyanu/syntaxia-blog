@@ -48,7 +48,9 @@ const initialState = {
 		? JSON.parse(localStorage.getItem("userInfo"))
 		: null,
 	loading: false,
-	loggedIn: false,
+	loggedIn: localStorage.getItem("userInfo")
+		? JSON.parse(localStorage.getItem("userInfo")).loggedIn
+		: false,
 };
 
 const authSlice = createSlice({
@@ -66,7 +68,6 @@ const authSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-
 			.addCase(login.pending, (state, action) => {
 				state.userInfo = null;
 				localStorage.removeItem("userInfo");
