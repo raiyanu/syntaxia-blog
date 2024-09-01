@@ -26,21 +26,24 @@ function App() {
       console.log("res.ok : ", res.ok);
 
       if (res.ok) {
+        setData("failed");
         setData("Error: ", res.error.message);
         setData("Error: ", res.data.message);
       }
     };
     run();
   }, []);
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
   return (
     <>
       <div data-theme={`${currentTheme}`} className="wrapper w-full h-full">
         <div className="max-w-[1300px] block mx-auto min-h-[100vh]">
           <Navbar handleThemeChange={handleThemeChange} themes={themes} />
-          <h1 className="text-red-600 text-center px-3 rounded-box bg-blue-200 w-fit block mx-auto my-3">
-            {data}
-          </h1>
+          {data !== "failed" && (
+            <h1 className="text-red-600 text-center px-3 rounded-box bg-blue-200 w-fit block mx-auto my-3">
+              {data}
+            </h1>
+          )}
           <Outlet />
           <Footer />
         </div>
