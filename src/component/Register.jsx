@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, Form, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { register } from "../slices/authSlice";
 
 export default function Register() {
@@ -31,10 +31,16 @@ export default function Register() {
     } else {
       alert("Please agree to our terms and services");
     }
-  }
+  };
+  const state = useSelector((state) => state);
   useEffect(() => {
-    console.log("userinfo in login page:", JSON.parse(localStorage.getItem("userInfo")));
-    const loggedIn = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")).loggedIn : state.auth.loggedIn;
+    console.log(
+      "userinfo in login page:",
+      JSON.parse(localStorage.getItem("userInfo"))
+    );
+    const loggedIn = localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo")).loggedIn
+      : state.auth.loggedIn;
     if (loggedIn) {
       console.log("Logged in");
       console.log("Logged in");
