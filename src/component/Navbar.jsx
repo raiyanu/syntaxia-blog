@@ -178,7 +178,7 @@ export default function Navbar({ handleThemeChange, themes }) {
           LOGIN {state.auth.loading ? "..." : ""}
         </NavLink>)}
         <button onClick={() => {
-          console.log(state.auth);
+          console.log(state);
         }}>state</button>
 
 
@@ -199,6 +199,7 @@ export default function Navbar({ handleThemeChange, themes }) {
                 <span className="badge">New</span>
               </Link>
             </li>
+            <li><Link to={"makeBlog"}>Create Blog</Link></li>
             <li><a>Settings</a></li>
             <li onClick={() => {
               dispatch(logout());
