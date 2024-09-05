@@ -19,6 +19,7 @@ import Register from "./component/Register";
 import About from "./component/About.jsx";
 import ProfileSection from "./component/ProfileSection.jsx";
 import ProtectedRoute from "./component/ProtectedRoute.jsx";
+import MakeBlog from "./component/MakeBlog.jsx";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
             path: "profile",
             element: <ProfileSection />,
           },
+          {
+            path: "makeBlog",
+            element: <MakeBlog />,
+          }
           // Add other protected routes here
         ],
       },
