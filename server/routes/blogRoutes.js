@@ -1,8 +1,9 @@
 import { protect } from "../middleware/authMiddleware.js";
 import express from "express";
-import { postBlog } from "../controllers/blogController.js";
+import { postBlog, getBlogs } from "../controllers/blogController.js";
 const router = express.Router();
 
+router.route("/:blogId").get(getBlogs);
 router
 	.route("/")
 	.post(protect, postBlog)

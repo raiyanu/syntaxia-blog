@@ -38,4 +38,21 @@ const postBlog = asyncHandler(async (req, res) => {
 	}
 });
 
-export { postBlog };
+const getBlogs = asyncHandler(async (req, res) => {
+	try {
+		const blogs = await Blog.findOne({ blog_id: req.params.blogId });
+		console.log("Blogs:", blogs); // TODO : REMOVE THIS
+		if (!blogs) {
+			res.status(404).send({
+				message: `No blogs found under the id of ${req.params.blogId}`,
+			});
+		} else {
+			res.json(blogs);
+		}
+	} catch (error) {
+		res.status(401);
+		throw new Error("Unable to fetch blogs");
+	}
+});
+
+export { postBlog, getBlogs };
