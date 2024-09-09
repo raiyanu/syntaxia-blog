@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { getBlog } from "../slices/blogSlice";
+import Markdown from "react-markdown";
+import styled from "styled-components"
 
 export default function Blog() {
   // TODO: find the blog in the state using the blogId from the URL if it exists else fetch it from the server Tadah! caching !! 🎉
@@ -60,13 +62,105 @@ export default function Blog() {
               <h1 className="font-extrabold">
                 {blog ? blog.title : "Loading..."}
               </h1>
-              <p> {blog.content ? blog.content : "Loading..."} </p>
+              <ContentContainer > {blog.content ? <MarkdownToJsx content={blog.content} /> : "Loading..."} </ContentContainer>
               {/* <Loremo /> TODO: remove this templater */}
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
+  );
+}
+
+export const ContentContainer = styled.div`
+max-width: 100%;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+p {
+  margin: .5rem 0;
+} 
+h1, h2, h3, h4, h5, h6 {
+  margin: 1rem 0 .5rem 0;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+blockquote {
+  border-left: 4px solid #ccc;
+  padding: 0 15px;
+  margin: 1rem 0;
+}
+pre {
+  background-color: #f4f4f4;
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 5px;
+}
+   h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    margin: 1.5rem 0;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.75em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
+  p {
+    line-height: 1.6;
+    margin: 1rem 0;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  ul, ol {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  li {
+    margin: 0.5rem 0;
+  }
+
+  blockquote {
+    padding-left: 1rem;
+    border-left: 4px solid;
+    margin: 1rem 0;
+    font-style: italic;
+  }
+
+  pre {
+    background-color: inherit;
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+  }
+
+  code {
+    background-color: inherit;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+`;
+
+export const MarkdownToJsx = ({ content }) => {
+  return (
+    <Markdown>
+      {content}
+    </Markdown>
   );
 }
 

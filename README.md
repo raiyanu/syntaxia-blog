@@ -4,7 +4,7 @@ Welcome to the Syntaxia Blog! This is a simple project where we share articles a
 
 <h1 style="text-align:center;">
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c4d4676e-fdf5-4d37-b88c-913f7f51dead/deploy-status)](https://app.netlify.com/sites/syntaxi/deploys) [![Badge Text](https://img.shields.io/badge/Live-Link-blue)](https://syntaxi.netlify.app/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c4d4676e-fdf5-4d37-b88c-913f7f51dead/deploy-status)](https://app.netlify.com/sites/syntaxi/deploys) [![Live-Link](https://img.shields.io/badge/Live-Link-blue)](https://syntaxi.netlify.app/) [![Docker-Image](https://img.shields.io/badge/Docker-Image-white)](https://hub.docker.com/r/raiyanu/syntaxia)
 
 </h1>
 
@@ -18,6 +18,24 @@ To get started with the Syntaxia Blog, follow these steps:
 2. Install the necessary dependencies.
 3. Run the project locally.
 4. Start exploring the articles and tutorials.
+
+## Running docker image
+  
+```bash
+docker pull raiyanu/syntaxia
+  
+docker run -d -p 3000:3000 -p 6969:6969 --name syntaxi-blog raiyanu/syntaxia:latest
+```  
+
+- Open your browser and go to `localhost:3000` to see the project Frontend running.
+- Open your browser and go to `localhost:6969` to access backend API running.
+- To stop the container, run `docker stop syntaxi-blog`.
+- To remove the container, run `docker rm syntaxi-blog`.
+- To remove the image, run `docker rmi syntaxi-blog`.
+- To see the logs, run `docker logs syntaxi-blog`.
+- To enter the container, run `docker exec -it syntaxi-blog /bin/bash`.
+- To see all the running containers, run `docker ps`.
+- To see all the containers, run `docker ps -a`.
 
 ## Features
 
