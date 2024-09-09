@@ -38,4 +38,47 @@ const postBlog = asyncHandler(async (req, res) => {
 	}
 });
 
-export { postBlog };
+const getBlog = asyncHandler(async (req, res) => {
+	try {
+		const blogs = await Blog.findOne({ blog_id: req.params.blogId });
+		console.log("Blogs:", blogs); // TODO : REMOVE THIS
+		if (!blogs) {
+			res.status(404).send({
+				message: `No blogs found under the id of ${req.params.blogId}`,
+			});
+		} else {
+			res.json(blogs);
+		}
+	} catch (error) {
+		res.status(401);
+		throw new Error("Unable to fetch blogs");
+	}
+});
+const getBlogs = asyncHandler(async (req, res) => {
+	const limit = 6;
+	try {
+		const blogs = await Blog.find()
+			.skip(limit * (req.params.pageNo - 1))
+			.limit(limit);
+		if (!blogs) {
+			res.status(404).send({
+				message: `couldn't get the content for page ${req.params.pageNo}th`,
+			});
+		} else {
+			const doclength = await Blog.countDocuments();
+			res.json({
+				blogs,
+				pages:
+					(doclength - (doclength % limit)) / limit +
+					(doclength % limit === 0 ? 0 : 1),
+				doclength,
+			});
+		}
+	} catch (error) {
+		res.status(401);
+		console.log("Error:", error.message);
+		throw new Error("Unable to fetch blogs");
+	}
+});
+
+export { postBlog, getBlogs, getBlog };
