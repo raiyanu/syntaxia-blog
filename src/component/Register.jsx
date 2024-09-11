@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, Form, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../slices/authSlice";
+import { register, resetNavigationFlag } from "../slices/authSlice";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -26,7 +26,6 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (terms) {
-      alert("Registering...");
       dispatch(register({ email, password, username }));
     } else {
       alert("Please agree to our terms and services");
@@ -48,6 +47,13 @@ export default function Register() {
       navigate("/");
     }
   }, []);
+  const { shouldNavigate } = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (shouldNavigate) {
+      navigate("/profile");
+      dispatch(resetNavigationFlag());
+    }
+  }, [shouldNavigate, navigate, dispatch]);
   return (
     <div className="max-w-full flex items-center flex-col justify-center  mb-20  border-l-info-content min-w-full min-h-[60vh]">
       <h1 className="text-primary font-extrabold text-2xl my-4">Register</h1>

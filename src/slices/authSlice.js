@@ -51,77 +51,95 @@ const initialState = {
 	loggedIn: localStorage.getItem("userInfo")
 		? JSON.parse(localStorage.getItem("userInfo")).loggedIn
 		: false,
+	shouldNavigate: false,
+};
+
+const loginManagement = {
+	pending: (state, action) => {
+		state.userInfo = null;
+		localStorage.removeItem("userInfo");
+		console.log("State:", state);
+	},
+	fulfilled: (state, action) => {
+		state.userInfo = action.payload;
+		state.loading = false;
+		state.loggedIn = true;
+		localStorage.setItem(
+			"userInfo",
+			JSON.stringify({ ...action.payload, loggedIn: true })
+		);
+		console.log("State:", state);
+		state.shouldNavigate = true;
+	},
+	rejected: (state, action) => {
+		state.userInfo = null;
+		localStorage.removeItem("userInfo");
+		console.log("State:", state);
+		alert(action.payload.message);
+	},
+};
+
+const registerManagement = {
+	pending: (state, action) => {
+		state.userInfo = null;
+		localStorage.removeItem("userInfo");
+		console.log("State:", state);
+	},
+	fulfilled: (state, action) => {
+		state.userInfo = action.payload;
+		state.loading = false;
+		state.loggedIn = true;
+		localStorage.setItem(
+			"userInfo",
+			JSON.stringify({ ...action.payload, loggedIn: true })
+		);
+		console.log("State:", state);
+		state.shouldNavigate = true;
+	},
+	rejected: (state, action) => {
+		state.userInfo = null;
+		localStorage.removeItem("userInfo");
+		console.log("State:", state);
+		console.log("action:", action);
+		alert(action.payload.message);
+	},
+};
+
+const logoutManagement = {
+	pending: (state, action) => {
+		state.userInfo = null;
+		localStorage.removeItem("userInfo");
+		state.loggedIn = false;
+		console.log("State:", state);
+	},
+	rejected: (state, action) => {
+		state.userInfo = null;
+		localStorage.removeItem("userInfo");
+		state.loggedIn = false;
+		console.log("State:", state);
+	},
 };
 
 const authSlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {
-		// login(state, action) {
-		// 	state.userInfo = action.payload;
-		// 	localStorage.setItem("userInfo", JSON.stringify(action.payload));
-		// },
-		// logout(state) {
-		// 	state.userInfo = null;
-		// 	localStorage.removeItem("userInfo");
-		// },
+		resetNavigationFlag: (state) => {
+			state.shouldNavigate = false;
+		},
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(login.pending, (state, action) => {
-				state.userInfo = null;
-				localStorage.removeItem("userInfo");
-				console.log("State:", state);
-			})
-			.addCase(login.fulfilled, (state, action) => {
-				state.userInfo = action.payload;
-				state.loading = false;
-				state.loggedIn = true;
-				localStorage.setItem(
-					"userInfo",
-					JSON.stringify({ ...action.payload, loggedIn: true })
-				);
-				console.log("State:", state);
-			})
-			.addCase(login.rejected, (state, action) => {
-				state.userInfo = null;
-				localStorage.removeItem("userInfo");
-				console.log("State:", state);
-			})
-			.addCase(register.pending, (state, action) => {
-				state.userInfo = null;
-				localStorage.removeItem("userInfo");
-				console.log("State:", state);
-			})
-			.addCase(register.fulfilled, (state, action) => {
-				state.userInfo = action.payload;
-				state.loading = false;
-				state.loggedIn = true;
-				localStorage.setItem(
-					"userInfo",
-					JSON.stringify({ ...action.payload, loggedIn: true })
-				);
-				console.log("State:", state);
-			})
-			.addCase(register.rejected, (state, action) => {
-				state.userInfo = null;
-				localStorage.removeItem("userInfo");
-				console.log("State:", state);
-				console.log("action:", action);
-			})
-			.addCase(logout.pending, (state, action) => {
-				state.userInfo = null;
-				localStorage.removeItem("userInfo");
-				state.loggedIn = false;
-				console.log("State:", state);
-			})
-			.addCase(logout.rejected, (state, action) => {
-				state.userInfo = null;
-				localStorage.removeItem("userInfo");
-				state.loggedIn = false;
-				console.log("State:", state);
-			});
+			.addCase(login.pending, loginManagement.pending)
+			.addCase(login.fulfilled, loginManagement.fulfilled)
+			.addCase(login.rejected, loginManagement.rejected)
+			.addCase(register.pending, registerManagement.pending)
+			.addCase(register.fulfilled, registerManagement.fulfilled)
+			.addCase(register.rejected, registerManagement.rejected)
+			.addCase(logout.pending, logoutManagement.pending)
+			.addCase(logout.rejected, logoutManagement.rejected);
 	},
 });
 
+export const { resetNavigationFlag } = authSlice.actions;
 export default authSlice;

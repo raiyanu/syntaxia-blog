@@ -51,6 +51,7 @@ const blogSlice = createSlice({
 			.addCase(postBlog.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload;
+				alert(action.payload.message);
 			})
 			.addCase(getBlog.pending, (state, action) => {
 				state.loading = true;
@@ -73,6 +74,7 @@ const blogSlice = createSlice({
 					message: "Unable to fetch blogs",
 					apiResponse: action.payload.message,
 				};
+				alert(action.payload.message);
 			});
 	},
 });

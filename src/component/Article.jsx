@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 const Articles = [
   {
     title: "How to be a good programmer",
@@ -45,6 +45,25 @@ const Articles = [
 ];
 
 export default function Article() {
+  const [currentPage, setCurrentPage] = useState(4);
+  const [selectedOption, setSelectedOption] = useState(currentPage);
+  const handleOptionChange = (e) => {
+    let value = e.target.value;
+    if (value === "<") {
+      if (currentPage === 1) return;
+      value = parseInt(currentPage >= 1 ? currentPage - 1 : 1);
+    }
+    if (value === ">") {
+      if (currentPage === noOfPage) return;
+      value = parseInt(currentPage <= noOfPage ? currentPage + 1 : 1);
+    }
+    value = parseInt(value);
+    setSelectedOption(value);
+    setCurrentPage(value);
+    console.log(value);
+  };
+  const noOfPage = 12;
+
   return (
     <div className="min-w-[70%] lg:max-w-[70%] p-2 md:p-4">
       <h2 className="text-primary  font-bold my-4  text-2xl">Top Article</h2>
@@ -53,32 +72,9 @@ export default function Article() {
           <ArticleItem key={index} name={{ Article, index }} />
         ))}
       </ul>
+      {/* Pagination */}
       <div className="join  flex  justify-center mt-4">
-        <input
-          className="join-item btn btn-square"
-          type="radio"
-          name="options"
-          aria-label="1"
-          defaultChecked
-        />
-        <input
-          className="join-item btn btn-square"
-          type="radio"
-          name="options"
-          aria-label="2"
-        />
-        <input
-          className="join-item btn btn-square"
-          type="radio"
-          name="options"
-          aria-label="3"
-        />
-        <input
-          className="join-item btn btn-square"
-          type="radio"
-          name="options"
-          aria-label="4"
-        />
+        {renderPageButtons(noOfPage, currentPage, handleOptionChange)}
       </div>
     </div>
   );
@@ -106,5 +102,70 @@ const ArticleItem = ({ name: { Article, index } }) => {
         </button>
       </li>
     </>
+  );
+};
+
+const renderPageButtons = (noOfPage, currentPage, handleOptionChange) => {
+  let elements = [];
+  if (!(currentPage === 1)) {
+    elements.push(
+      <Input
+        ariaLabel="<"
+        handleOptionChange={handleOptionChange}
+        currentPage={currentPage}
+      />
+    );
+  }
+  for (
+    let i = currentPage === 1 ? currentPage : currentPage - 1;
+    i <= noOfPage;
+    i++
+  ) {
+    elements.push(
+      <Input
+        ariaLabel={i}
+        handleOptionChange={handleOptionChange}
+        currentPage={currentPage}
+      />
+    );
+    if (i === 1 + currentPage && i < noOfPage - 2) {
+      elements.push(
+        <Input
+          ariaLabel="..."
+          handleOptionChange={handleOptionChange}
+          currentPage={currentPage}
+        />
+      );
+      i = noOfPage - 1;
+    }
+  }
+
+  if (!(currentPage === noOfPage)) {
+    elements.push(
+      <Input
+        ariaLabel=">"
+        handleOptionChange={handleOptionChange}
+        currentPage={currentPage}
+      />
+    );
+  }
+  return elements;
+};
+
+const Input = ({ ariaLabel, handleOptionChange, currentPage }) => {
+  return (
+    <input
+      className="join-item btn btn-square"
+      disabled={ariaLabel === "..." ? true : false}
+      type="radio"
+      name="options"
+      aria-label={ariaLabel}
+      key={ariaLabel + "-key"}
+      id={ariaLabel}
+      value={ariaLabel}
+      checked={ariaLabel == currentPage}
+      // onClick={}
+      onChange={(e) => handleOptionChange(e)}
+    />
   );
 };
