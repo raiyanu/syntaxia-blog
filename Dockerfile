@@ -1,13 +1,13 @@
 FROM node 
 
-WORKDIR /usr/src/app
+WORKDIR /client/
 
-COPY package*.json ./
+COPY package*.json /client/
 
-RUN yarn install && yarn install --cwd server/package.json
+COPY . /client/
 
-COPY . .
+RUN yarn install && yarn build 
 
-EXPOSE 3000 6969
+EXPOSE 3000
 
-CMD ["yarn", "run", "dev"]
+CMD ["yarn", "run", "preview"]

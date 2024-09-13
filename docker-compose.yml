@@ -1,0 +1,26 @@
+services:
+  app:
+    container_name: app
+    restart: always
+    build:  ./server/
+    ports:
+      - "6969:6969"
+    expose:
+      - "6969"
+    depends_on:
+      - mongo
+  frontend:
+    container_name: frontend
+    restart: always
+    build: ./
+    ports:
+      - "3000:3000"
+    depends_on:
+      - app
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
