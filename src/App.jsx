@@ -33,7 +33,7 @@ function App() {
     };
     run();
   }, []);
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   return (
     <>
       <div data-theme={`${currentTheme}`} className="wrapper w-full h-full">
