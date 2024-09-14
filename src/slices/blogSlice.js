@@ -4,6 +4,7 @@ import axios from "axios";
 export const postBlog = createAsyncThunk(
 	"blog/post",
 	async (data, { rejectWithValue }) => {
+		console.log("DATA:", data);
 		try {
 			const response = await axios.post("/api/blog/", {
 				blog: { ...data },
