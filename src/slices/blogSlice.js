@@ -31,14 +31,47 @@ export const getBlog = createAsyncThunk(
 	}
 );
 
+export const getBlogS = createAsyncThunk(
+	"blogs/get",
+	async (pageNo, { rejectWithValue }) => {
+		try {
+			const response = await axios.get(`/api/blog/page/${pageNo}`);
+			return response.data;
+		} catch (error) {
+			console.error("Error during fetching blog in:", error);
+			// Return custom error message from the server if any
+			return rejectWithValue(error.response.data);
+		}
+	}
+);
+
+const getBlogSManagement = {
+	pending: (state, action) => {
+		state.blogs = [];
+		state.loading = true;
+	},
+	fulfilled: (state, action) => {
+		state.blogs = action.payload.blogs;
+		state.totalPages = action.payload.pages;
+		state.totalBlogs = action.payload.doclength;
+		loading = false;
+	},
+	rejected: (state, action) => {
+		state.blogs = [];
+		loading = false;
+	},
+};
+
 const initialState = {
 	loading: false,
 	error: null,
 	blogs: [],
+	totalPages: 0,
+	totalBlogs: 0,
 };
 
 const blogSlice = createSlice({
-	name: "auth",
+	name: "blog",
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {

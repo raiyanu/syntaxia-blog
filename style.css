@@ -2075,29 +2075,6 @@ html {
   --tw-border-opacity: 0.2;
 }
 
-:root .countdown {
-  line-height: 1em;
-}
-
-.countdown {
-  display: inline-flex;
-}
-
-.countdown > * {
-  height: 1em;
-  display: inline-block;
-  overflow-y: hidden;
-}
-
-.countdown > *:before {
-  position: relative;
-  content: "00\A 01\A 02\A 03\A 04\A 05\A 06\A 07\A 08\A 09\A 10\A 11\A 12\A 13\A 14\A 15\A 16\A 17\A 18\A 19\A 20\A 21\A 22\A 23\A 24\A 25\A 26\A 27\A 28\A 29\A 30\A 31\A 32\A 33\A 34\A 35\A 36\A 37\A 38\A 39\A 40\A 41\A 42\A 43\A 44\A 45\A 46\A 47\A 48\A 49\A 50\A 51\A 52\A 53\A 54\A 55\A 56\A 57\A 58\A 59\A 60\A 61\A 62\A 63\A 64\A 65\A 66\A 67\A 68\A 69\A 70\A 71\A 72\A 73\A 74\A 75\A 76\A 77\A 78\A 79\A 80\A 81\A 82\A 83\A 84\A 85\A 86\A 87\A 88\A 89\A 90\A 91\A 92\A 93\A 94\A 95\A 96\A 97\A 98\A 99\A";
-  white-space: pre;
-  top: calc(var(--value) * -1em);
-  text-align: center;
-  transition: all 1s cubic-bezier(1, 0, 0, 1);
-}
-
 .divider {
   display: flex;
   flex-direction: row;
@@ -2793,12 +2770,26 @@ html {
   border-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-border-opacity)));
 }
 
+.badge-primary {
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-p,oklch(var(--p)/var(--tw-border-opacity)));
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-p,oklch(var(--p)/var(--tw-bg-opacity)));
+  --tw-text-opacity: 1;
+  color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
+}
+
 .badge-info {
   border-color: transparent;
   --tw-bg-opacity: 1;
   background-color: var(--fallback-in,oklch(var(--in)/var(--tw-bg-opacity)));
   --tw-text-opacity: 1;
   color: var(--fallback-inc,oklch(var(--inc)/var(--tw-text-opacity)));
+}
+
+.badge-outline.badge-primary {
+  --tw-text-opacity: 1;
+  color: var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
 }
 
 .badge-outline.badge-info {
@@ -4138,6 +4129,10 @@ html {
   margin-bottom: 2rem;
 }
 
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
 .ml-auto {
   margin-left: auto;
 }
@@ -4164,10 +4159,6 @@ html {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.ml-1 {
-  margin-left: 0.25rem;
 }
 
 .block {
@@ -4237,14 +4228,6 @@ html {
 
 .max-h-\[500px\] {
   max-height: 500px;
-}
-
-.max-h-\[50px\] {
-  max-height: 50px;
-}
-
-.max-h-\[60px\] {
-  max-height: 60px;
 }
 
 .max-h-\[70px\] {
@@ -4325,6 +4308,10 @@ html {
   width: 100%;
 }
 
+.w-28 {
+  width: 7rem;
+}
+
 .min-w-\[30\%\] {
   min-width: 30%;
 }
@@ -4335,11 +4322,6 @@ html {
 
 .min-w-full {
   min-width: 100%;
-}
-
-.min-w-fit {
-  min-width: -moz-fit-content;
-  min-width: fit-content;
 }
 
 .max-w-2xl {
@@ -4364,6 +4346,10 @@ html {
 
 .max-w-\[30\%\] {
   max-width: 30%;
+}
+
+.max-w-\[300px\] {
+  max-width: 300px;
 }
 
 .max-w-\[350px\] {
@@ -4394,23 +4380,6 @@ html {
   max-width: 20rem;
 }
 
-.max-w-\[200px\] {
-  max-width: 200px;
-}
-
-.max-w-\[300px\] {
-  max-width: 300px;
-}
-
-.max-w-\[50px\] {
-  max-width: 50px;
-}
-
-.max-w-fit {
-  max-width: -moz-fit-content;
-  max-width: fit-content;
-}
-
 .shrink {
   flex-shrink: 1;
 }
@@ -4433,26 +4402,6 @@ html {
 
 .resize-none {
   resize: none;
-}
-
-.columns-3 {
-  -moz-columns: 3;
-       columns: 3;
-}
-
-.columns-\[30px\] {
-  -moz-columns: 30px;
-       columns: 30px;
-}
-
-.columns-\[40px\] {
-  -moz-columns: 40px;
-       columns: 40px;
-}
-
-.columns-\[fit-content\] {
-  -moz-columns: fit-content;
-       columns: fit-content;
 }
 
 .grid-flow-col {
@@ -4507,6 +4456,10 @@ html {
   justify-content: space-between;
 }
 
+.justify-around {
+  justify-content: space-around;
+}
+
 .gap-1 {
   gap: 0.25rem;
 }
@@ -4529,14 +4482,6 @@ html {
 
 .overflow-clip {
   overflow: clip;
-}
-
-.overflow-scroll {
-  overflow: scroll;
-}
-
-.overflow-x-scroll {
-  overflow-x: scroll;
 }
 
 .overflow-y-scroll {
@@ -4598,16 +4543,6 @@ html {
   background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
 }
 
-.bg-red-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
-}
-
-.bg-red-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
-}
-
 .bg-opacity-0 {
   --tw-bg-opacity: 0;
 }
@@ -4624,6 +4559,10 @@ html {
   stroke: currentColor;
 }
 
+.p-1 {
+  padding: 0.25rem;
+}
+
 .p-10 {
   padding: 2.5rem;
 }
@@ -4638,10 +4577,6 @@ html {
 
 .p-8 {
   padding: 2rem;
-}
-
-.p-1 {
-  padding: 0.25rem;
 }
 
 .px-2 {
@@ -4887,10 +4822,6 @@ html {
 .hover\:bg-slate-300:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(203 213 225 / var(--tw-bg-opacity));
-}
-
-.hover\:fill-green-600:hover {
-  fill: #16a34a;
 }
 
 .hover\:fill-red-700:hover {
