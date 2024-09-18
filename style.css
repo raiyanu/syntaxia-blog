@@ -4267,6 +4267,10 @@ html {
   width: 3rem;
 }
 
+.w-28 {
+  width: 7rem;
+}
+
 .w-4 {
   width: 1rem;
 }
@@ -4306,10 +4310,6 @@ html {
 
 .w-full {
   width: 100%;
-}
-
-.w-28 {
-  width: 7rem;
 }
 
 .min-w-\[30\%\] {
