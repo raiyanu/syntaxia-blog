@@ -4,9 +4,7 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
 	const env = Object.assign(process.env, loadEnv(mode, process.cwd(), ""));
-	const API_URL = env.ISDOCKERIZED
-		? "http://localhost:6969/"
-		: "http://app:6969/";
+	const API_URL = env.API_URL;
 	const PORT = env.PORT ? env.PORT : 3000;
 	return {
 		plugins: [react()],
