@@ -7,11 +7,17 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 app.use((req, res, next) => {
 	console.log(`\n\n\n${req.method.toUpperCase()} : ${req.originalUrl}`);
 	next();
 });
+const corsOptions = {
+	origin: "https://syntaxia-one.vercel.app",
+	credentials: true,
+};
 
+app.use(cors(corsOptions));
 app.use(
 	// express.static("../dist"),
 	express.json({ limit: "50mb", extended: true, type: "application/json" }),
