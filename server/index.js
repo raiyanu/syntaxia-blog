@@ -13,7 +13,7 @@ app.use((req, res, next) => {
 });
 
 app.use(
-	express.static("../dist"),
+	// express.static("../dist"),
 	express.json({ limit: "50mb", extended: true, type: "application/json" }),
 	express.urlencoded({ extended: true }),
 	cookieParser()
