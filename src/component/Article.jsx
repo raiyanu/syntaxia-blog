@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 const Articles = [
   {
     title: "How to be a good programmer",
@@ -45,6 +46,9 @@ const Articles = [
 ];
 
 export default function Article() {
+  const loading = useSelector((state) => state.blog.loading);
+  const blogList = useSelector((state) => state.blog.blogs);
+  const [noOfPage, setNoOfPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(4);
   const [selectedOption, setSelectedOption] = useState(currentPage);
   const handleOptionChange = (e) => {
@@ -62,10 +66,16 @@ export default function Article() {
     setCurrentPage(value);
     console.log(value);
   };
-  const noOfPage = 12;
-
+  const refresh = () => {
+    console.log("refresh");
+  };
   return (
     <div className="min-w-[70%] lg:max-w-[70%] p-2 md:p-4">
+      <div className="flex items-center justify-around w-full"> <span className="badge badge-primary">debugger:</span>
+
+        <h1>loading: {loading ? "true" : "false"}</h1>
+        <button className="btn btn-sm btn-outline" type="button" onClick={refresh}>refresh</button>
+      </div>
       <h2 className="text-primary  font-bold my-4  text-2xl">Top Article</h2>
       <ul className="flex grow-0 flex-wrap gap-2 w-full  justify-center">
         {Articles.map((Article, index) => (
@@ -169,3 +179,15 @@ const Input = ({ ariaLabel, handleOptionChange, currentPage }) => {
     />
   );
 };
+
+
+export const CardSkeleton = () => {
+  return (
+    <div className="flex w-52 flex-col gap-4">
+      <div className="skeleton h-32 w-full"></div>
+      <div className="skeleton h-4 w-28"></div>
+      <div className="skeleton h-4 w-full"></div>
+      <div className="skeleton h-4 w-full"></div>
+    </div>
+  );
+}

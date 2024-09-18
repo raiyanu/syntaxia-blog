@@ -25,15 +25,20 @@ const postBlog = asyncHandler(async (req, res) => {
 			title: blogData.title,
 			content: blogData.content,
 			author: req.user._id,
+			tags: blogData.tags,
+			category: blogData.category,
 		});
 		const createdBlog = await blog.save();
 		res.status(201).json({
 			_id: createdBlog._id,
 			title: createdBlog.title,
 			content: createdBlog.content,
+			tags: createdBlog.tags,
+			category: createdBlog.category,
 		});
 	} catch (error) {
 		res.status(401);
+		console.log("Error:", error.message);
 		throw new Error("Something went wrong...");
 	}
 });

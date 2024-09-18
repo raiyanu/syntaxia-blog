@@ -8,7 +8,7 @@
 		"build": "vite build",
 		"lint": "eslint .",
 		"preview": "vite preview --host --port 3000",
-		"dev": "concurrently \"yarn run start --host\" \"yarn --cwd server/ server\""
+		"dev": "concurrently \"yarn run start --host\" \"yarn --cwd server/ server\" \"tailwindcss --watch -o style.css \""
 	},
 	"dependencies": {
 		"@emotion/css": "^11.13.0",
