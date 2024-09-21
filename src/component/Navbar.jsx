@@ -161,10 +161,11 @@ export default function Navbar({ handleThemeChange, themes }) {
         <select
           onChange={(e) => handleThemeChange(e)}
           className="select select-bordered w-26 py-0 h-2 text-sm min-h-10 btn pr-7 hidden lg:flex"
+          value={"forest"}
         >
-          {themes.map((address, key) => (
-            <option value={key} key={`${address}-${key}`}>
-              {address == "night" ? "night(Default)" : address}
+          {themes.map((themeName, key) => (
+            <option value={key} key={`${themeName}-${key}`} >
+              {themeName}
             </option>
           ))}
         </select>

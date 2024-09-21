@@ -54,9 +54,9 @@ function App() {
 
 export default App;
 const themes = [
+  "forest",
   "halloween",
   "garden",
-  "forest",
   "aqua",
   "lofi",
   "pastel",
