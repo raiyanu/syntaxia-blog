@@ -22,4 +22,4 @@ dist-ssr
 *.sln
 *.sw?
 nohup.out
-style.css
+./style.css
