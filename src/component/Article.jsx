@@ -1,57 +1,25 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-const Articles = [
-  {
-    title: "How to be a good programmer",
-    category: "Technology & Science",
-    posted: "Dec 12, 2021",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
-  },
-  {
-    title: "Getting Started with Python",
-    category: "Technology & Science",
-    posted: "Apr 2, 2022",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
-  },
-  {
-    title: "The Art of Public Speaking",
-    category: "Personal Development",
-    posted: "May 15, 2022",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
-  },
-  {
-    title: "Effective Time Management Techniques",
-    category: "Self Improvement",
-    posted: "Jun 8, 2022",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
-  },
-  {
-    title: "Healthy Eating Habits Impact",
-    category: "Health tips & Tricks",
-    posted: "Jul 20, 2022",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
-  },
-  {
-    title: "Getting Started with Python",
-    category: "Technology & Science",
-    posted: "Apr 2, 2022",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
-  },
-];
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getBlogS } from "../slices/blogSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Article() {
+  const navigate = useNavigate();
   const loading = useSelector((state) => state.blog.loading);
   const blogList = useSelector((state) => state.blog.blogs);
-  const [noOfPage, setNoOfPage] = useState(0);
-  const [currentPage, setCurrentPage] = useState(4);
+  const dispatch = useDispatch();
+  const noOfPage = useSelector((state) => state.blog.totalPages);
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedOption, setSelectedOption] = useState(currentPage);
-  const handleOptionChange = (e) => {
+  useEffect(() => {
+    HandleArticleState();
+  }, [currentPage]);
+
+  const HandleArticleState = async () => {
+    dispatch(getBlogS(currentPage));
+    console.log("Article State:", blogList);
+  };
+  const handleOptionChange = async (e) => {
     let value = e.target.value;
     if (value === "<") {
       if (currentPage === 1) return;
@@ -65,22 +33,31 @@ export default function Article() {
     setSelectedOption(value);
     setCurrentPage(value);
     console.log(value);
+    await dispatch(getBlogS(value)).then(navigate(`#article`));
   };
   const refresh = () => {
-    console.log("refresh");
+    HandleArticleState();
   };
   return (
     <div className="min-w-[70%] lg:max-w-[70%] p-2 md:p-4">
-      <div className="flex items-center justify-around w-full"> <span className="badge badge-primary">debugger:</span>
+      {/* <div className="flex items-center justify-around w-full"> <span className="badge badge-primary">debugger:</span>
 
         <h1>loading: {loading ? "true" : "false"}</h1>
         <button className="btn btn-sm btn-outline" type="button" onClick={refresh}>refresh</button>
-      </div>
-      <h2 className="text-primary  font-bold my-4  text-2xl">Top Article</h2>
-      <ul className="flex grow-0 flex-wrap gap-2 w-full  justify-center">
-        {Articles.map((Article, index) => (
-          <ArticleItem key={index} name={{ Article, index }} />
-        ))}
+      </div> */}
+      <h2 className="text-primary  font-bold my-4  text-2xl" id="article">Articles</h2>
+      <ul className="flex grow-0 flex-wrap gap-2 w-full justify-center">
+        {loading ? (
+          <ArticleSkeleton />
+        ) : (
+          blogList && blogList.length > 0 ? (
+            blogList.map((Article, index) => (
+              <ArticleItem key={index} name={{ Article, index }} />
+            ))
+          ) : (
+            <p>No articles found.</p>
+          )
+        )}
       </ul>
       {/* Pagination */}
       <div className="join  flex  justify-center mt-4">
@@ -101,15 +78,15 @@ const ArticleItem = ({ name: { Article, index } }) => {
         <div className="skeleton h-32 w-full mb-4"></div>
         <p className="text-sm text-gray-500 mb-1">
           <span key={index} className="mr-2 ">
-            {Article.category}
+            {Article.category ? Article.category : "General"}
           </span>
-          - <span>{Article.posted}</span>
+          {Article.posted && "-"} <span>{Article.posted}</span>
         </p>
         <h3 className="text-lg font-bold">{Article.title}</h3>
-        <p className="h-24  overflow-clip text-sm">{Article.content}</p>
-        <button className="btn btn-primary block ml-auto mt-3 btn-sm">
+        <p className="h-24  overflow-clip text-ellipsis text-sm">{Article.content}</p>
+        <Link to={`/blog/${Article.blog_id}`} className="btn btn-primary block max-w-fit  ml-auto mt-3 btn-sm">
           Read
-        </button>
+        </Link>
       </li>
     </>
   );
@@ -117,12 +94,19 @@ const ArticleItem = ({ name: { Article, index } }) => {
 
 const renderPageButtons = (noOfPage, currentPage, handleOptionChange) => {
   let elements = [];
+  if (noOfPage === 0) return <Input
+    ariaLabel="1"
+    handleOptionChange={handleOptionChange}
+    currentPage={currentPage}
+    key="1"
+  />;
   if (!(currentPage === 1)) {
     elements.push(
       <Input
         ariaLabel="<"
         handleOptionChange={handleOptionChange}
         currentPage={currentPage}
+        key="<"
       />
     );
   }
@@ -136,6 +120,7 @@ const renderPageButtons = (noOfPage, currentPage, handleOptionChange) => {
         ariaLabel={i}
         handleOptionChange={handleOptionChange}
         currentPage={currentPage}
+        key={i}
       />
     );
     if (i === 1 + currentPage && i < noOfPage - 2) {
@@ -144,6 +129,7 @@ const renderPageButtons = (noOfPage, currentPage, handleOptionChange) => {
           ariaLabel="..."
           handleOptionChange={handleOptionChange}
           currentPage={currentPage}
+          key="..."
         />
       );
       i = noOfPage - 1;
@@ -156,6 +142,7 @@ const renderPageButtons = (noOfPage, currentPage, handleOptionChange) => {
         ariaLabel=">"
         handleOptionChange={handleOptionChange}
         currentPage={currentPage}
+        key=">"
       />
     );
   }
@@ -183,11 +170,27 @@ const Input = ({ ariaLabel, handleOptionChange, currentPage }) => {
 
 export const CardSkeleton = () => {
   return (
-    <div className="flex w-52 flex-col gap-4">
-      <div className="skeleton h-32 w-full"></div>
+    <div className="flex w-52 flex-col gap-4 border shrink-0  p-4 my-2 rounded-md shadow-md hover:shadow-lg min-w-[260px]">
+      <div className="skeleton h-32 min-w-full"></div>
       <div className="skeleton h-4 w-28"></div>
       <div className="skeleton h-4 w-full"></div>
       <div className="skeleton h-4 w-full"></div>
+      <div className="skeleton h-4 w-full"></div>
+      <div className="skeleton h-4 w-4/5"></div>
+      <div className="skeleton ml-auto h-6 w-12"></div>
+    </div>
+  );
+}
+
+export const ArticleSkeleton = () => {
+  return (
+    <div className="flex flex-wrap gap-2 shrink-0 w-full justify-center">
+      <CardSkeleton />
+      <CardSkeleton />
+      <CardSkeleton />
+      <CardSkeleton />
+      <CardSkeleton />
+      <CardSkeleton />
     </div>
   );
 }

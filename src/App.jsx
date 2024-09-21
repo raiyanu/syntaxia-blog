@@ -8,7 +8,7 @@ import Footer from "./component/Footer";
 function App() {
   const [data, setData] = useState("not loaded");
 
-  const [currentTheme, setCurrentTheme] = useState("night");
+  const [currentTheme, setCurrentTheme] = useState("forest");
   const handleThemeChange = (e) => {
     console.log(e.target.value);
     setCurrentTheme((z) => themes[e.target.value]);
@@ -16,7 +16,6 @@ function App() {
   useEffect(() => {
     const run = async () => {
       console.log("run\n\n\n\n\n\n");
-      document.title = "Syntaxia | Login";
       const res = await axios({
         url: "/api/test",
         method: "GET",
@@ -39,10 +38,11 @@ function App() {
       <div data-theme={`${currentTheme}`} className="wrapper w-full h-full">
         <div className="max-w-[1300px] block mx-auto min-h-[100vh]">
           <Navbar handleThemeChange={handleThemeChange} themes={themes} />
-          {data !== "failed" && (
-            <h1 className="text-red-600 text-center px-3 rounded-box bg-blue-200 w-fit block mx-auto my-3">
-              {data}
-            </h1>
+          {data !== "Server starting... wait for 50 seconds" && (
+            // <h1 className="text-red-600 text-center px-3 rounded-box bg-blue-200 w-fit block mx-auto my-3">
+            //   {data}
+            // </h1>
+            null
           )}
           <Outlet />
           <Footer />

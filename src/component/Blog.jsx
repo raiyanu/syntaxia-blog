@@ -26,6 +26,7 @@ export default function Blog() {
     if (foundBlog) {
       setBlog(foundBlog);
       console.log("Blog found:", foundBlog);
+      document.title = `${foundBlog.title} - Blog`;
     } else {
       console.log("Blog not found in state");
     }
