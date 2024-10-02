@@ -8,7 +8,7 @@ Welcome to the Syntaxia Blog! This is a simple project where we share articles a
 
 </h1>
 
-<h1 style="text-align:center;"> <sup style="display:inline;font-size:12px;">Progress</sup> 35%</h1>
+<h1 style="text-align:center;"> <sup style="display:inline;font-size:12px;">Progress</sup> 55%</h1>
 
 ## Getting Started
 
@@ -107,5 +107,25 @@ modal: blog_collections > blog{
   - [ ] Add Article page
   - [ ] Improvised Article page
 - [ ] Add comment functionality.
+
+## API ROUTES
+
+```mermaid 
+graph LR;
+    A["/api"] --> B["/api/blogs"]
+    A --> C["/api/users"]
+
+    B --> B1["GET /api/blogs/:blogId"]
+    B --> B2["POST /api/blogs"]
+    B2 --> B3["PUT /api/blogs"]
+    B --> B4["GET /api/blogs/page/:pageNo"]
+
+    C --> C1["POST /api/users/auth"]
+    C --> C2["POST /api/users/register"]
+    C --> C3["POST /api/users/logout"]
+    C --> C4["GET /api/users/profile"]
+    C4 --> C5["PUT /api/users/profile"]
+
+```
 
 Feel free to update this section as you make progress and complete tasks. Happy coding!
