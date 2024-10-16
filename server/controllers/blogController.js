@@ -12,6 +12,7 @@ const postBlog = asyncHandler((req, res, next) => {
 	upload.single("image")(req, res, async (err) => {
 		console.log("Adding blog..."); // TODO : REMOVE THIS
 		try {
+			console.log("req.file:", req.file); // TODO : REMOVE THIS
 			const blogData = req.body.blog;
 			if (!blogData) {
 				res.status(400);

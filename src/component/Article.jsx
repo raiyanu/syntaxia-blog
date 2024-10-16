@@ -83,9 +83,9 @@ const ArticleItem = ({ name: { Article, index } }) => {
           {Article.posted && "-"} <span>{Article.posted}</span>
         </p>
         <h3 className="text-lg font-bold">{Article.title}</h3>
-        <p className="h-24  overflow-clip text-ellipsis text-sm">{Article.content}</p>
+        <p className="h-24 min-h-24  overflow-clip text-ellipsis text-sm">{Article.content}</p>
         <Link to={`/blog/${Article.blog_id}`} className="btn btn-primary block max-w-fit  ml-auto mt-3 btn-sm">
-          Read
+          <span className="h-full w-full flex items-center justify-center">Read</span>
         </Link>
       </li>
     </>

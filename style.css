@@ -4267,6 +4267,10 @@ html {
   min-height: 100vh;
 }
 
+.min-h-24 {
+  min-height: 6rem;
+}
+
 .w-12 {
   width: 3rem;
 }
