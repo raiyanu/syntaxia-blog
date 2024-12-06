@@ -4,8 +4,8 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"start": "concurrently -p \"[{name}]\" -n \"CLIENT\" -c \"bgBlue.bold\" vite",
-		"build": "concurrently -p \"[{name}]\" -n \"CLIENT\" -c \"bgBlue.bold\" vite run build",
+		"start": "concurrently -p \"[{name}]\" -n \"CLIENT\" -c \"bgBlue.bold\" \"vite\"",
+		"build": "concurrently -p \"[{name}]\" -n \"CLIENT\" -c \"bgBlue.bold\" \"vite run build\"",
 		"lint": "concurrently -p \"[{name}]\" -n \"CLIENT\" -c \"bgBlue.bold\" eslint .",
 		"preview": "concurrently -p \"[{name}]\" -n \"CLIENT\" -c \"bgBlue.bold\" vite preview --host --port 3000",
 		"client": "vite --host",
